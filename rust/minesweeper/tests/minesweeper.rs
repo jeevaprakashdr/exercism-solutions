@@ -28,7 +28,6 @@ fn no_rows() {
 }
 
 #[test]
-#[ignore]
 fn no_columns() {
     #[rustfmt::skip]
     run_test(&[
@@ -37,7 +36,6 @@ fn no_columns() {
 }
 
 #[test]
-#[ignore]
 fn no_mines() {
     #[rustfmt::skip]
     run_test(&[

@@ -1,3 +1,21 @@
 pub fn annotate(minefield: &[&str]) -> Vec<String> {
-    todo!("\nAnnotate each square of the given minefield with the number of mines that surround said square (blank if there are no surrounding mines):\n{minefield:#?}\n");
+    println!("{:?}", &minefield);
+    
+    let mut result:Vec<String> = vec![];
+
+    if minefield.is_empty() {
+        return result
+    }
+
+    for val in minefield {
+        if val.is_empty() {
+            result.push("".to_string());
+        }
+
+        if val.eq(&"   ") {
+            result.push("   ".to_string())
+        }
+    }
+
+    result
 }

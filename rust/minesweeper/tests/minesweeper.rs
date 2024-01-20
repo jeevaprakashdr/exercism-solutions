@@ -46,7 +46,6 @@ fn no_mines() {
 }
 
 #[test]
-#[ignore]
 fn board_with_only_mines() {
     #[rustfmt::skip]
     run_test(&[

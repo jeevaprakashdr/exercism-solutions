@@ -24,18 +24,15 @@ impl Clock {
 
     fn get_hours_and_minutes_string(&self) -> (String, String) {
         let clock = Self::calculate_hours_and_minutes(self.hours, self.minutes);
-        let hours = clock.0;
-        let minutes = clock.1;
-
-        let hour_str = match hours {
-            1..=9 => format!("0{}", hours),
-            10..=23 => hours.to_string(),
+        let hour_str = match clock.0 {
+            1..=9 => format!("0{}", clock.0),
+            10..=23 => clock.0.to_string(),
             _ => "00".to_owned(),
         };
 
-        let minute_str = match minutes {
-            1..=9 => format!("0{}", minutes),
-            10..=59 => minutes.to_string(),
+        let minute_str = match clock.1 {
+            1..=9 => format!("0{}", clock.1),
+            10..=59 => clock.1.to_string(),
             _ => "00".to_owned(),
         };
 
@@ -50,8 +47,8 @@ impl Clock {
             minutes = m.rem_euclid(60);
             hours += m.div_euclid(60);
         } else if minutes >= 60 {
-            let val: f32 = m as f32 / 60.0;
-            hours += val.trunc() as i32;
+            let minutes_div: f32 = m as f32 / 60 as f32;
+            hours += minutes_div.trunc() as i32;
             minutes = m.rem_euclid(60)
         }
 

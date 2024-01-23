@@ -21,12 +21,14 @@ impl Clock {
         if self.minutes < 60 {
             minutes = self.minutes;
         } else if self.minutes >= 60 {
-            let val = self.minutes as f32/ 60.0;
+            let val: f32 = self.minutes as f32/ 60.0;
             hours += val.trunc() as i32;
             minutes =  self.minutes % 60;
         }
         
-        if hours > 24 {
+        if hours < 0 {
+            hours = 24 + (hours % 24); 
+        } else if hours > 24 {
             hours = hours % 24
         }
         

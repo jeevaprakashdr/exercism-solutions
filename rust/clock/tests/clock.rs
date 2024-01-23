@@ -60,19 +60,16 @@ fn hours_and_minutes_roll_over_to_exactly_midnight() {
 }
 
 #[test]
-#[ignore]
 fn negative_hour() {
     assert_eq!(Clock::new(-1, 15).to_string(), "23:15");
 }
 
 #[test]
-#[ignore]
 fn negative_hour_roll_over() {
     assert_eq!(Clock::new(-25, 00).to_string(), "23:00");
 }
 
 #[test]
-#[ignore]
 fn negative_hour_roll_over_continuously() {
     assert_eq!(Clock::new(-91, 00).to_string(), "05:00");
 }

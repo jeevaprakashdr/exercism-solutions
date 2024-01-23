@@ -1,5 +1,6 @@
 use std::fmt::{self};
 
+#[derive(Debug, PartialEq)]
 pub struct Clock {
     hours: i32,
     minutes: i32,
@@ -80,24 +81,5 @@ impl fmt::Display for Clock {
         let tup = self.get_hours_and_minutes_string();
 
         write!(f, "{}:{}", tup.0, tup.1)
-    }
-}
-
-impl fmt::Debug for Clock {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("Clock")
-            .field("hours", &self.hours)
-            .field("minutes", &self.minutes)
-            .finish()
-    }
-}
-
-impl PartialEq for Clock {
-    fn eq(&self, other: &Self) -> bool {
-        self.hours == other.hours && self.minutes == other.minutes
-    }
-
-    fn ne(&self, other: &Self) -> bool {
-        !self.eq(other)
     }
 }

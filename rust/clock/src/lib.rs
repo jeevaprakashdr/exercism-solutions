@@ -15,17 +15,21 @@ impl Clock {
     }
 
     fn get_hours_string(&self) -> String {
-        let hours = match self.hours >= 10 {
-            true => self.hours.to_string(),
-            false => format!("0{}", self.hours)
+        let hours = match self.hours {
+             1..=9 => format!("0{}", self.hours),
+             10..=23 => self.hours.to_string(),
+             24 => "00".to_owned(),
+             _ => panic!("Invalid hours")
         };
         hours
     }
 
     fn get_minutes_string(&self) -> String {
-        let minutes = match self.minutes >= 10 {
-            true => self.minutes.to_string(),
-            false => format!("0{}", self.minutes)
+        let minutes = match self.minutes{
+            1..=9 => format!("0{}", self.minutes),
+            10..=58 => self.minutes.to_string(),
+            0 | 59 => "00".to_owned(),
+             _ => panic!("Invalid minutes")
         };
         minutes
     }

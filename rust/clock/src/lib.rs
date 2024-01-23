@@ -18,19 +18,20 @@ impl Clock {
         let mut hours = 0;
         let mut minutes = 0;
 
-        if self.hours <= 24 {
-            hours = self.hours
-        } else if self.hours > 24 {
-            hours = self.hours / 24
-        }
         if self.minutes < 60 {
             minutes = self.minutes;
         } else if self.minutes >= 60 {
             let val = self.minutes as f32/ 60.0;
             hours += val.trunc() as i32;
-            minutes =  (val.fract() * 100.0).trunc() as i32;
+            minutes =  self.minutes % 60 
         }
 
+        if self.hours <= 24 {
+            hours += self.hours
+        } else if self.hours > 24 {
+            hours += self.hours / 24
+        }
+        
         let hour_str = match hours {
             0..=9 => format!("0{}", hours),
             10..=23 => hours.to_string(),
@@ -38,6 +39,7 @@ impl Clock {
             _ => panic!("Invalid hours"),
         };
 
+        println!("{}", minutes);
         let minute_str = match minutes {
             1..=9 => format!("0{}", minutes),
             10..=58 => minutes.to_string(),
@@ -48,6 +50,7 @@ impl Clock {
 
         (hour_str, minute_str)
     }
+
 }
 
 impl fmt::Display for Clock {

@@ -7,7 +7,11 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
-        Clock { hours, minutes }
+        let clock = Self::calculate_hours_and_minutes(hours, minutes);
+        Clock {
+            hours: clock.0,
+            minutes: clock.1,
+        }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
@@ -18,32 +22,30 @@ impl Clock {
         }
     }
 
-    fn get_hours_and_minutes(&self) -> (String, String) {
+    fn get_hours_and_minutes_string(&self) -> (String, String) {
         let clock = Self::calculate_hours_and_minutes(self.hours, self.minutes);
         let hours = clock.0;
         let minutes = clock.1;
-        
+
         let hour_str = match hours {
             0..=9 => format!("0{}", hours),
             10..=23 => hours.to_string(),
-            24 => "00".to_owned(),
-            _ => panic!("Invalid hours"),
+            _ => "00".to_owned(),
         };
 
         let minute_str = match minutes {
             1..=9 => format!("0{}", minutes),
             10..=59 => minutes.to_string(),
-            0 | 60 => "00".to_owned(),
-            _ => panic!("Invalid minutes"),
+            _ => "00".to_owned(),
         };
 
         (hour_str, minute_str)
     }
 
-    fn calculate_hours_and_minutes(h: i32, m:i32 ) -> (i32, i32) {
+    fn calculate_hours_and_minutes(h: i32, m: i32) -> (i32, i32) {
         let mut hours = h;
         let mut minutes = m;
-        
+
         if minutes < 0 {
             minutes = m.rem_euclid(60);
             hours += m.div_euclid(60);
@@ -71,14 +73,14 @@ impl Clock {
             0 | 60 => 0,
             _ => panic!("Invalid minutes"),
         };
-        
+
         (hours, minutes)
     }
 }
 
 impl fmt::Display for Clock {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let tup = self.get_hours_and_minutes();
+        let tup = self.get_hours_and_minutes_string();
 
         write!(f, "{}:{}", tup.0, tup.1)
     }

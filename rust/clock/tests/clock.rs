@@ -45,19 +45,16 @@ fn minutes_roll_over_continuously() {
 }
 
 #[test]
-#[ignore]
 fn hours_and_minutes_roll_over() {
     assert_eq!(Clock::new(25, 160).to_string(), "03:40");
 }
 
 #[test]
-#[ignore]
 fn hours_and_minutes_roll_over_continuously() {
     assert_eq!(Clock::new(201, 3001).to_string(), "11:01");
 }
 
 #[test]
-#[ignore]
 fn hours_and_minutes_roll_over_to_exactly_midnight() {
     assert_eq!(Clock::new(72, 8640).to_string(), "00:00");
 }

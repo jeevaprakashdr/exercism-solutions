@@ -15,7 +15,7 @@ impl Clock {
     }   
 
     fn get_hours_and_minutes(&self) -> (String, String) {
-        let mut hours = 0;
+        let mut hours = self.hours;
         let mut minutes = 0;
 
         if self.minutes < 60 {
@@ -23,13 +23,11 @@ impl Clock {
         } else if self.minutes >= 60 {
             let val = self.minutes as f32/ 60.0;
             hours += val.trunc() as i32;
-            minutes =  self.minutes % 60 
+            minutes =  self.minutes % 60;
         }
-
-        if self.hours <= 24 {
-            hours += self.hours
-        } else if self.hours > 24 {
-            hours += self.hours / 24
+        
+        if hours > 24 {
+            hours = hours % 24
         }
         
         let hour_str = match hours {

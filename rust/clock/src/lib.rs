@@ -12,42 +12,49 @@ impl Clock {
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
         todo!("Add {minutes} minutes to existing Clock time");
-    }
+    }   
 
-    fn get_hours_string(&self) -> String {
+    fn get_hours_and_minutes(&self) -> (String, String) {
         let mut hours = 0;
+        let mut minutes = 0;
 
         if self.hours <= 24 {
             hours = self.hours
         } else if self.hours > 24 {
             hours = self.hours / 24
         }
-        
-        match hours {
+        if self.minutes < 60 {
+            minutes = self.minutes;
+        } else if self.minutes >= 60 {
+            let val = self.minutes as f32/ 60.0;
+            hours += val.trunc() as i32;
+            minutes =  (val.fract() * 100.0).trunc() as i32;
+        }
+
+        let hour_str = match hours {
             0..=9 => format!("0{}", hours),
             10..=23 => hours.to_string(),
             24 => "00".to_owned(),
             _ => panic!("Invalid hours"),
-        }
-    }
+        };
 
-    fn get_minutes_string(&self) -> String {
-        let minutes = match self.minutes {
-            1..=9 => format!("0{}", self.minutes),
-            10..=58 => self.minutes.to_string(),
+        let minute_str = match minutes {
+            1..=9 => format!("0{}", minutes),
+            10..=58 => minutes.to_string(),
             0 | 59 => "00".to_owned(),
+            60 => "00".to_owned(),
             _ => panic!("Invalid minutes"),
         };
-        minutes
+
+        (hour_str, minute_str)
     }
 }
 
 impl fmt::Display for Clock {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let hours = self.get_hours_string();
-        let minutes = self.get_minutes_string();
+        let tup = self.get_hours_and_minutes();
 
-        write!(f, "{}:{}", hours, minutes)
+        write!(f, "{}:{}", tup.0, tup.1)
     }
 }
 

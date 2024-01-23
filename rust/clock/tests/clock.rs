@@ -30,7 +30,6 @@ fn hour_rolls_over_continuously() {
 }
 
 #[test]
-#[ignore]
 fn sixty_minutes_is_next_hour() {
     assert_eq!(Clock::new(1, 60).to_string(), "02:00");
 }

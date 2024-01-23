@@ -15,21 +15,28 @@ impl Clock {
     }
 
     fn get_hours_string(&self) -> String {
-        let hours = match self.hours {
-             1..=9 => format!("0{}", self.hours),
-             10..=23 => self.hours.to_string(),
-             24 => "00".to_owned(),
-             _ => panic!("Invalid hours")
-        };
-        hours
+        let mut hours = 0;
+
+        if self.hours <= 24 {
+            hours = self.hours
+        } else if self.hours > 24 {
+            hours = self.hours / 24
+        }
+        
+        match hours {
+            0..=9 => format!("0{}", hours),
+            10..=23 => hours.to_string(),
+            24 => "00".to_owned(),
+            _ => panic!("Invalid hours"),
+        }
     }
 
     fn get_minutes_string(&self) -> String {
-        let minutes = match self.minutes{
+        let minutes = match self.minutes {
             1..=9 => format!("0{}", self.minutes),
             10..=58 => self.minutes.to_string(),
             0 | 59 => "00".to_owned(),
-             _ => panic!("Invalid minutes")
+            _ => panic!("Invalid minutes"),
         };
         minutes
     }
@@ -44,7 +51,6 @@ impl fmt::Display for Clock {
     }
 }
 
-
 impl fmt::Debug for Clock {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Clock")
@@ -54,7 +60,7 @@ impl fmt::Debug for Clock {
     }
 }
 
-impl PartialEq for Clock{
+impl PartialEq for Clock {
     fn eq(&self, other: &Self) -> bool {
         self.hours == other.hours && self.minutes == other.minutes
     }

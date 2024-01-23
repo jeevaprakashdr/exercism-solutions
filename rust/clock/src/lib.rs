@@ -16,16 +16,17 @@ impl Clock {
 
     fn get_hours_and_minutes(&self) -> (String, String) {
         let mut hours = self.hours;
-        let mut minutes = 0;
+        let mut minutes= self.minutes ;
 
-        if self.minutes < 60 {
-            minutes = self.minutes;
-        } else if self.minutes >= 60 {
+        if minutes < 0 {
+            minutes = self.minutes.rem_euclid(60);            
+            hours -= 1;
+        } else if minutes >= 60 {
             let val: f32 = self.minutes as f32/ 60.0;
             hours += val.trunc() as i32;
-            minutes =  self.minutes % 60;
+            minutes =  self.minutes.rem_euclid(60)
         }
-        
+        println!("{}", minutes);
         if hours < 0 {
             hours = 24 + (hours % 24); 
         } else if hours > 24 {
@@ -38,8 +39,7 @@ impl Clock {
             24 => "00".to_owned(),
             _ => panic!("Invalid hours"),
         };
-
-        println!("{}", minutes);
+        
         let minute_str = match minutes {
             1..=9 => format!("0{}", minutes),
             10..=58 => minutes.to_string(),

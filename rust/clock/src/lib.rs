@@ -20,13 +20,13 @@ impl Clock {
 
         if minutes < 0 {
             minutes = self.minutes.rem_euclid(60);            
-            hours -= 1;
+            hours += self.minutes.div_euclid(60);
         } else if minutes >= 60 {
             let val: f32 = self.minutes as f32/ 60.0;
             hours += val.trunc() as i32;
             minutes =  self.minutes.rem_euclid(60)
         }
-        println!("{}", minutes);
+        
         if hours < 0 {
             hours = 24 + (hours % 24); 
         } else if hours > 24 {

@@ -17,7 +17,7 @@ impl Clock {
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
         Clock::new(self.hours, self.minutes + minutes)
-    }   
+    }
 
     fn calculate_hours_and_minutes(h: i32, m: i32) -> (i32, i32) {
         let mut hours = h;
@@ -32,24 +32,13 @@ impl Clock {
             minutes = m.rem_euclid(60)
         }
 
-        if hours < 0 {
+        if hours % 24 == 0 {
+            hours = 0
+        } else if hours < 0 {
             hours = 24 + (hours % 24);
-        } else if hours > 24 {
-            hours = hours % 24
+        } else if hours >= 24 {
+            hours %= 24;
         }
-
-        hours = match hours {
-            0..=23 => hours,
-            24 => 0,
-            _ => panic!("Invalid hours"),
-        };
-
-        minutes = match minutes {
-            1..=9 => minutes,
-            10..=59 => minutes,
-            0 | 60 => 0,
-            _ => panic!("Invalid minutes"),
-        };
 
         (hours, minutes)
     }

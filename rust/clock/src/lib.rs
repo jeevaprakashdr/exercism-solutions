@@ -8,39 +8,43 @@ pub struct Clock {
 
 impl Clock {
     pub fn new(hours: i32, minutes: i32) -> Self {
-        let clock = Self::calculate_hours_and_minutes(hours, minutes);
         Clock {
-            hours: clock.0,
-            minutes: clock.1,
+            hours: hours,
+            minutes: minutes,
         }
+        .calculate_hours_and_minutes()
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
         Clock::new(self.hours, self.minutes + minutes)
     }
 
-    fn calculate_hours_and_minutes(h: i32, m: i32) -> (i32, i32) {
-        let mut hours = h;
-        let mut minutes = m;
+    fn calculate_hours_and_minutes(&self) -> Self {
+        let hours_in_a_day = 24;
+        let minutes_in_a_hour = 60;
+
+        let mut hours = self.hours;
+        let mut minutes = self.minutes;
 
         if minutes < 0 {
-            minutes = m.rem_euclid(60);
-            hours += m.div_euclid(60);
-        } else if minutes >= 60 {
-            let minutes_div: f32 = m as f32 / 60 as f32;
-            hours += minutes_div.trunc() as i32;
-            minutes = m.rem_euclid(60)
+            hours += minutes.div_euclid(minutes_in_a_hour);
+        } else if minutes >= minutes_in_a_hour {
+            hours += minutes / minutes_in_a_hour;
         }
 
-        if hours % 24 == 0 {
+        minutes = minutes.rem_euclid(minutes_in_a_hour);
+
+        if hours < 0 {
+            hours = hours_in_a_day + (hours % hours_in_a_day);
+        } else if hours >= hours_in_a_day {
+            hours %= hours_in_a_day;
+        }
+
+        if hours == hours_in_a_day {
             hours = 0
-        } else if hours < 0 {
-            hours = 24 + (hours % 24);
-        } else if hours >= 24 {
-            hours %= 24;
         }
 
-        (hours, minutes)
+        Clock { hours, minutes }
     }
 }
 

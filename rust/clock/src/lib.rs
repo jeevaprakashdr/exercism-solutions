@@ -16,11 +16,7 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        let clock = Self::calculate_hours_and_minutes(self.hours, self.minutes + minutes);
-        Clock {
-            hours: clock.0,
-            minutes: clock.1,
-        }
+        Clock::new(self.hours, self.minutes + minutes)
     }   
 
     fn calculate_hours_and_minutes(h: i32, m: i32) -> (i32, i32) {

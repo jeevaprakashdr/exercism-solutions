@@ -21,24 +21,7 @@ impl Clock {
             hours: clock.0,
             minutes: clock.1,
         }
-    }
-
-    fn get_hours_and_minutes_string(&self) -> (String, String) {
-        let clock = Self::calculate_hours_and_minutes(self.hours, self.minutes);
-        let hour_str = match clock.0 {
-            1..=9 => format!("0{}", clock.0),
-            10..=23 => clock.0.to_string(),
-            _ => "00".to_owned(),
-        };
-
-        let minute_str = match clock.1 {
-            1..=9 => format!("0{}", clock.1),
-            10..=59 => clock.1.to_string(),
-            _ => "00".to_owned(),
-        };
-
-        (hour_str, minute_str)
-    }
+    }   
 
     fn calculate_hours_and_minutes(h: i32, m: i32) -> (i32, i32) {
         let mut hours = h;
@@ -78,8 +61,6 @@ impl Clock {
 
 impl fmt::Display for Clock {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let tup = self.get_hours_and_minutes_string();
-
-        write!(f, "{}:{}", tup.0, tup.1)
+        write!(f, "{:02}:{:02}", self.hours, self.minutes)
     }
 }

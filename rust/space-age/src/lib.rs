@@ -29,7 +29,13 @@ pub struct Saturn;
 pub struct Uranus;
 pub struct Neptune;
 
-impl Planet for Mercury {}
+impl Planet for Mercury {
+    fn years_during(d: &Duration) -> f64 {
+        let mercury_earth_year = 31557600.0 * 0.2408467 as f64;
+        (1.0/mercury_earth_year) * d.seconds as f64
+    }
+}
+
 impl Planet for Venus {}
 impl Planet for Earth {}
 impl Planet for Mars {}

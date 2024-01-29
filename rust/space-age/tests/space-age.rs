@@ -18,7 +18,6 @@ fn age_on_earth() {
 }
 
 #[test]
-#[ignore]
 fn age_on_mercury() {
     let seconds = 2134835688;
     let duration = Duration::from(seconds);
@@ -28,7 +27,6 @@ fn age_on_mercury() {
 }
 
 #[test]
-#[ignore]
 fn age_on_venus() {
     let seconds = 189839836;
     let duration = Duration::from(seconds);

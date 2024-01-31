@@ -1,21 +1,23 @@
 // The code below is a stub. Just enough to satisfy the compiler.
 // In order to pass the tests you can add-to or change any of this code.
 
-const EARTH_YEAR_IN_SECONDS: f64 = 31557600.0;
+const EARTH_SECONDS : Duration = Duration(31557600);
+
 #[derive(Debug)]
-pub struct Duration {
-    seconds: u64,
-}
+pub struct Duration(u64);
 
 impl From<u64> for Duration {
     fn from(s: u64) -> Self {
-        Duration { seconds: s }
+        Duration(s)
     }
 }
 
+
 pub trait Planet {
+    const PLANET_YEAR : f64;    
+    
     fn years_during(d: &Duration) -> f64 {
-        todo!("convert a duration ({d:?}) to the number of years on this planet for that duration");
+        d.0 as f64 / Self::PLANET_YEAR
     }
 }
 
@@ -31,13 +33,10 @@ pub struct Neptune;
 macro_rules! planet_impl {
     (
         $planet_name: ident,
-        $orbital_period: expr
+        $orbital_period: literal
     ) => {
         impl Planet for $planet_name {
-            fn years_during(d: &Duration) -> f64 {
-                let earth_year: f64 = EARTH_YEAR_IN_SECONDS * $orbital_period as f64;
-                (1.0 / earth_year) * d.seconds as f64
-            }
+            const PLANET_YEAR: f64 = EARTH_SECONDS.0 as f64 * $orbital_period as f64;
         }
     };
 }

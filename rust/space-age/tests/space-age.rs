@@ -36,7 +36,6 @@ fn age_on_venus() {
 }
 
 #[test]
-#[ignore]
 fn age_on_mars() {
     let seconds = 2129871239;
     let duration = Duration::from(seconds);
@@ -46,7 +45,6 @@ fn age_on_mars() {
 }
 
 #[test]
-#[ignore]
 fn age_on_jupiter() {
     let seconds = 901876382;
     let duration = Duration::from(seconds);
@@ -56,7 +54,6 @@ fn age_on_jupiter() {
 }
 
 #[test]
-#[ignore]
 fn age_on_saturn() {
     let seconds = 2000000000;
     let duration = Duration::from(seconds);
@@ -66,7 +63,6 @@ fn age_on_saturn() {
 }
 
 #[test]
-#[ignore]
 fn age_on_uranus() {
     let seconds = 1210123456;
     let duration = Duration::from(seconds);
@@ -76,7 +72,6 @@ fn age_on_uranus() {
 }
 
 #[test]
-#[ignore]
 fn age_on_neptune() {
     let seconds = 1821023456;
     let duration = Duration::from(seconds);
